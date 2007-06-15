@@ -14,8 +14,10 @@ Source2:	http://downloads2.ioncube.com/loader_downloads/ioncube_loaders_lin_ppc.
 # Source2-md5:	233acef94ff789a799f0637648d1e10f
 URL:		http://ioncube.com/
 BuildRequires:	coreutils
-BuildRequires:	php4-devel
-Requires:	php4-common
+BuildRequires:	php4-devel >= 3:4.0.0
+BuildRequires:	rpmbuild(macros) >= 1.344
+%{?requires_php_extension}
+Requires:	php4-common >= 3:4.4.0-3
 ExclusiveArch:	%{ix86} %{x8664} ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -46,11 +48,11 @@ echo "zend_extension_ts=%{php_extensiondir}/%{_name}.so" > $RPM_BUILD_ROOT%{php_
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%php_webserver_restart
+%php4_webserver_restart
 
 %postun
 if [ "$1" = 0 ]; then
-	%php_webserver_restart
+	%php4_webserver_restart
 fi
 
 %files
