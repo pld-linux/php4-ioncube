@@ -46,12 +46,17 @@ Moduł wczytujący ionCube dla PHP.
 %setup -q -T -b 2 -n %{_name}
 %endif
 
+mv ioncube_loader_lin_%{php_major_version}.%{php_minor_version}%{?zend_zts}.so %{_name}.so
+ver=$(strings %{_name}.so | grep -F %{version})
+if [ "$ver" != "%{version}" ]; then
+        exit 1
+fi
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{php_extensiondir},%{php_sysconfdir}/conf.d}
 
-install $(ls -1 *lin_4.*_ts.so  | sort | tail -n 1) $RPM_BUILD_ROOT%{php_extensiondir}/%{_name}.so
-echo "zend_extension_ts=%{php_extensiondir}/%{_name}.so" > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_name}.ini
+install -p %{_name}.so $RPM_BUILD_ROOT%{php_extensiondir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
