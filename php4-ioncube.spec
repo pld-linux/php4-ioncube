@@ -58,6 +58,11 @@ install -d $RPM_BUILD_ROOT{%{php_extensiondir},%{php_sysconfdir}/conf.d}
 
 install -p %{_name}.so $RPM_BUILD_ROOT%{php_extensiondir}
 
+cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_name}.ini
+; Enable %{modname} extension module
+zend_extension%{?zend_zts}=%{php_extensiondir}/%{_name}.so
+EOF
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
