@@ -12,7 +12,7 @@ Summary:	ionCube loader module for PHP
 Summary(pl.UTF-8):	Moduł wczytujący ionCube dla PHP
 Name:		php4-%{_name}
 Version:	%{ver}
-Release:	1
+Release:	2
 License:	redistributable
 Group:		Libraries
 Source0:	http://downloads2.ioncube.com/loader_downloads/ioncube_loaders_lin_x86.tar.bz2
